@@ -1,4 +1,4 @@
-
+const generateMarkdown = require('./utils/generateMarkdown');
 const inquirer = require('inquirer');
 const fs = require('fs')
 
@@ -75,19 +75,32 @@ const questions = () => {
             name: 'license',
             message: "Let other developers know what they can and can't do with your "
         }
-    ]);
-}
+    ])
+    .then(data => {
+        console.log(data);
+    });
+};
 
 // TODO: Create a function to write README file
 function writeToFile(fileName, data) {
         // This function will write the template to and README.MD file 
-        //fs.writeFile
+        fs.writeFile( fileName , data , function(err) {
+            if (err) {
+                return console.log(err);
+            }
+            console.log('Done!');
+        });
     }
 
 
 // TODO: Create a function to initialize app
-function init() {}
+// function init() {
+//     questions()
+//     .then(generateMarkdown(inquirerResponses))
+// }
 // This is where the promise to run inquirer will be called and then chained subsequently with all of the other functions in order to output the README file. 
 
 // Function call to initialize app
-init();
+// init();
+
+questions();
